@@ -1,0 +1,32 @@
+before:
+  hooks:
+    - go mod tidy
+
+builds:
+  - main: ./cmd/spotlightd/main.go
+    goos:
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    env:
+      - CGO_ENABLED=0
+
+nfpms:
+  - vendor: Your Name
+    homepage: https://github.com/kunal-saini/spotlight-manager
+    maintainer: Your Name <your.email@example.com>
+    description: Ubuntu Spotlight Wallpaper Manager
+    license: MIT
+    formats:
+      - deb
+    contents:
+      - src: packaging/systemd/spotlightd.service
+        dst: /lib/systemd/system/spotlightd.service
+    scripts:
+      postinstall: packaging/scripts/postinstall.sh
+      preremove: packaging/scripts/preremove.sh
+
+archives:
+  - format: tar.gz
+    name_template: "{{ .ProjectName }}_{{ .Version }}_{{ .Os }}_{{ .Arch }}"
