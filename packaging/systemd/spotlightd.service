@@ -1,0 +1,10 @@
+[Unit]
+Description=Ubuntu Spotlight Wallpaper Manager
+After=network.target
+
+[Service]
+Type=simple
+ExecStart=/usr/bin/spotlightd
+Restart=on-failure
+RestartSec=5s
+Environment=

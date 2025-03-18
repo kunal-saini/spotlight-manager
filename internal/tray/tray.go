@@ -2,9 +2,10 @@ package tray
 
 import (
 	"context"
+	"io/ioutil"
 	"log"
 
-	"github.com/getlantern/systray"
+	"fyne.io/systray"
 	"github.com/kunal-saini/spotlight-manager/internal/wallpaper"
 )
 
@@ -29,8 +30,14 @@ func New(ctx context.Context, manager *wallpaper.Manager, logger *log.Logger) (*
 }
 
 func (t *TrayIcon) onReady() {
+	iconBytes, err := getIcon()
+	if err != nil {
+		panic(err)
+	}
+
+	systray.SetIcon(iconBytes)
 	systray.SetTitle("Spotlight")
-	systray.SetTooltip("Ubuntu Spotlight Wallpaper Manager")
+	systray.SetTooltip("Ubuntu Spotlight Wallpaper")
 
 	refresh := systray.AddMenuItem("Refresh Now", "Refresh wallpaper immediately")
 	systray.AddSeparator()
@@ -60,4 +67,8 @@ func (t *TrayIcon) onExit() {
 func (t *TrayIcon) Quit() {
 	systray.Quit()
 	<-t.quitCh
+}
+
+func getIcon() ([]byte, error) {
+	return ioutil.ReadFile("./logo.png")
 }

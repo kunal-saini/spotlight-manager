@@ -13,9 +13,9 @@ builds:
       - CGO_ENABLED=0
 
 nfpms:
-  - vendor: Your Name
+  - vendor: Kunal Saini
     homepage: https://github.com/kunal-saini/spotlight-manager
-    maintainer: Your Name <your.email@example.com>
+    maintainer: Kunal Saini <kunalsaini.exe@gmail.com>
     description: Ubuntu Spotlight Wallpaper Manager
     license: MIT
     formats:
