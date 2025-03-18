@@ -4,7 +4,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/spotlightd
+ExecStart=/usr/bin/spotlight-manager
 Restart=on-failure
 RestartSec=5s
 Environment=

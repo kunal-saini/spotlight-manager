@@ -23,6 +23,8 @@ nfpms:
     contents:
       - src: packaging/systemd/spotlightd.service
         dst: /lib/systemd/system/spotlightd.service
+      - src: ./logo.png
+        dst: /usr/share/spotlight-manager/logo.png
     scripts:
       postinstall: packaging/scripts/postinstall.sh
       preremove: packaging/scripts/preremove.sh

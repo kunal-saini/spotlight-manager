@@ -2,11 +2,12 @@ package tray
 
 import (
 	"context"
-	"io/ioutil"
-	"log"
-
+	"fmt"
 	"fyne.io/systray"
 	"github.com/kunal-saini/spotlight-manager/internal/wallpaper"
+	"io/ioutil"
+	"log"
+	"os"
 )
 
 type TrayIcon struct {
@@ -70,5 +71,17 @@ func (t *TrayIcon) Quit() {
 }
 
 func getIcon() ([]byte, error) {
-	return ioutil.ReadFile("./logo.png")
+	// List of possible paths to check
+	paths := []string{
+		"logo.png",                              // Current working directory
+		"/usr/share/spotlight-manager/logo.png", // Installed directory
+	}
+
+	for _, path := range paths {
+		if _, err := os.Stat(path); err == nil {
+			return ioutil.ReadFile(path)
+		}
+	}
+
+	return nil, fmt.Errorf("logo.png not found in any of the expected locations")
 }
